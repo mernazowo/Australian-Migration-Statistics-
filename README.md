@@ -4,10 +4,10 @@
 **ID:** 34677151
 
 ## Live Website
-[Australian Migration 2024–25](https://YOUR_GITHUB_PAGES_URL) 
+[Australian Migration 2024–25](https://mernazowo.github.io/Australian-Migration-Statistics-/)
 
 ## Sketch PDF
-[View Sketch PDF](https://YOUR_GITHUB_PDF_URL)
+[View Sketch PDF](https://github.com/mernazowo/Australian-Migration-Statistics-/blob/main/fit2179-dv2/docs/FIT2179_Sketch.pdf)
 
 ## Data Sources
 
