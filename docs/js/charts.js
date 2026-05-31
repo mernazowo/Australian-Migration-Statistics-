@@ -8,4 +8,4 @@ vegaEmbed('#chart-heatmap', 'charts/heatmap_countries.json');
 vegaEmbed('#chart-nom', 'charts/area_nom.json');
 vegaEmbed('#chart-jobs', 'charts/donut_jobs.json');
 vegaEmbed('#chart-citizenship', 'charts/bar_citizenship.json');
-vegaEmbed('#chart-integration', 'charts/line_integration.json?v=3');
+vegaEmbed('#chart-integration', 'charts/line_integration.json?v=4');

@@ -16,7 +16,12 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "orient": "bottom",
+      "direction": "horizontal",
+      "title": null,
+      "offset": 16,
+      "columnPadding": 24
     },
     "title": {
       "color": "#E8E0D0",
@@ -28,7 +33,7 @@
     }
   },
   "width": "container",
-  "height": 280,
+  "height": 300,
   "data": {
     "url": "data/unemployment_integration.csv",
     "format": { "type": "csv" }
@@ -48,8 +53,12 @@
       "as": "group"
     },
     {
-      "calculate": "datum['Years in Australia'] === '< 2' ? '< 2' : datum['Years in Australia'] === '20+' ? '20+' : '' + round(toNumber(datum['Years in Australia']))",
-      "as": "years"
+      "calculate": "datum['Years in Australia'] == '< 2' ? 0 : datum['Years in Australia'] == '20+' ? 20 : round(toNumber(datum['Years in Australia']))",
+      "as": "years_x"
+    },
+    {
+      "calculate": "datum.years_x == 0 ? '< 2' : datum.years_x == 20 ? '20+' : datum.years_x + ' years'",
+      "as": "years_label"
     }
   ],
   "layer": [
@@ -61,10 +70,15 @@
       },
       "encoding": {
         "x": {
-          "field": "years",
-          "type": "ordinal",
-          "sort": ["< 2", "2", "4", "6", "8", "10", "12", "14", "16", "18", "20+"],
-          "axis": { "title": "Years in Australia", "labelFontSize": 10 }
+          "field": "years_x",
+          "type": "quantitative",
+          "scale": { "domain": [0, 20], "nice": false },
+          "axis": {
+            "title": "Years in Australia",
+            "values": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+            "labelExpr": "datum.value == 0 ? '< 2' : datum.value == 20 ? '20+' : '' + datum.value",
+            "labelFontSize": 10
+          }
         },
         "y": {
           "field": "value",
@@ -82,14 +96,6 @@
               "Australian-born"
             ],
             "range": ["#C9A84C", "#E05C3A", "#4A9EDB"]
-          },
-          "legend": {
-            "title": null,
-            "orient": "bottom",
-            "direction": "horizontal",
-            "columns": 3,
-            "offset": 12,
-            "labelLimit": 200
           }
         },
         "strokeDash": {
@@ -106,7 +112,7 @@
           "legend": null
         },
         "tooltip": [
-          { "field": "years", "title": "Years in Australia" },
+          { "field": "years_label", "title": "Years in Australia" },
           { "field": "group", "title": "Group" },
           { "field": "value", "title": "Unemployment Rate (%)", "format": ".1f" }
         ]
@@ -114,20 +120,24 @@
     },
     {
       "transform": [
-        { "filter": "datum.group === 'Australian-born' && datum.years === '< 2'" }
+        { "filter": "datum.group === 'Australian-born' && datum.years_x == 0" }
       ],
       "mark": {
         "type": "text",
         "fontSize": 10,
         "color": "#4A9EDB",
-        "dx": 5,
-        "dy": -8
+        "dx": 8,
+        "dy": -10,
+        "align": "left"
       },
       "encoding": {
-        "x": { "field": "years", "type": "ordinal", "sort": ["< 2", "2", "4", "6", "8", "10", "12", "14", "16", "18", "20+"] },
+        "x": { "field": "years_x", "type": "quantitative" },
         "y": { "field": "value", "type": "quantitative" },
         "text": { "value": "Australian-born baseline" }
       }
     }
-  ]
+  ],
+  "resolve": {
+    "legend": "independent"
+  }
 }
