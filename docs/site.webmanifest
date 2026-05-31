@@ -1,0 +1,19 @@
+{
+  "name": "Australian Migration 2024–25",
+  "short_name": "AU Migration",
+  "icons": [
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0D1117",
+  "background_color": "#0D1117",
+  "display": "standalone"
+}
