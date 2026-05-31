@@ -34,7 +34,7 @@
   "width": "container",
   "height": 320,
   "data": {
-    "url": "../data/migration_program.csv",
+    "url": "data/migration_program.csv",
     "format": {
       "type": "csv"
     }

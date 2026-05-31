@@ -34,7 +34,7 @@
   "width": "container",
   "height": 280,
   "data": {
-    "url": "../data/employer_sponsored_countries.csv",
+    "url": "data/employer_sponsored_countries.csv",
     "format": {
       "type": "csv"
     }

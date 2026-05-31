@@ -34,7 +34,7 @@
   "width": "container",
   "height": 280,
   "data": {
-    "url": "../data/streams.csv",
+    "url": "data/streams.csv",
     "format": {
       "type": "csv"
     }
@@ -44,7 +44,7 @@
       "lookup": "Year",
       "from": {
         "data": {
-          "url": "../data/humanitarian.csv",
+          "url": "data/humanitarian.csv",
           "format": {
             "type": "csv"
           }

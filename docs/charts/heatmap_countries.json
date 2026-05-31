@@ -34,7 +34,7 @@
   "width": "container",
   "height": 240,
   "data": {
-    "url": "../data/state_nominated_countries.csv",
+    "url": "data/state_nominated_countries.csv",
     "format": {
       "type": "csv"
     }

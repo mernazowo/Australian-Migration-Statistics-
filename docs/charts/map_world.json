@@ -65,7 +65,7 @@
           "lookup": "id",
           "from": {
             "data": {
-              "url": "../data/skilled_migration_map.csv",
+              "url": "data/skilled_migration_map.csv",
               "format": {
                 "type": "csv",
                 "parse": {
@@ -166,7 +166,7 @@
           "lookup": "id",
           "from": {
             "data": {
-              "url": "../data/skilled_migration_map.csv",
+              "url": "data/skilled_migration_map.csv",
               "format": {
                 "type": "csv",
                 "parse": {

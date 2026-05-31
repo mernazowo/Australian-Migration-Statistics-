@@ -34,7 +34,7 @@
   "width": "container",
   "height": 280,
   "data": {
-    "url": "../data/citizenship.csv",
+    "url": "data/citizenship.csv",
     "format": {
       "type": "csv"
     }
