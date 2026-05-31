@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "../data/employer_sponsored_countries.csv",
+    "format": { "type": "csv" }
+  },
+  "transform": [
+    { "filter": "datum.Year === '2024–25'" },
+    {
+      "fold": [
+        "India",
+        "United Kingdom",
+        "Philippines",
+        "South Africa",
+        "Sri Lanka",
+        "China",
+        "Nepal",
+        "Ireland",
+        "Brazil",
+        "Pakistan",
+        "Republic of Korea",
+        "Italy",
+        "Zimbabwe",
+        "Colombia",
+        "Vietnam"
+      ],
+      "as": ["country", "value"]
+    },
+    { "calculate": "toNumber(datum.value)", "as": "value" },
+    { "filter": "isValid(datum.value)" },
+    { "window": [{ "op": "rank", "as": "rank", "sort": [{ "field": "value", "order": "descending" }] }] },
+    { "filter": "datum.rank <= 10" }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "bar", "color": "#C9A84C", "cornerRadiusEnd": 3 },
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "ordinal",
+          "sort": "-x",
+          "axis": { "title": null, "labelFontSize": 11 }
+        },
+        "x": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": { "format": ",", "title": "Visa Grants (2024–25)" }
+        },
+        "color": {
+          "field": "value",
+          "type": "quantitative",
+          "scale": { "range": ["#7A5E20", "#C9A84C"] },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "country", "title": "Country" },
+          { "field": "value", "title": "Grants", "format": "," }
+        ]
+      }
+    },
+    {
+      "transform": [{ "filter": "datum.country === 'India'" }],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "color": "#E8E0D0",
+        "fontSize": 10,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "y": { "field": "country", "type": "ordinal", "sort": "-x" },
+        "x": { "field": "value", "type": "quantitative" },
+        "text": { "value": "Largest source country" }
+      }
+    }
+  ]
+}

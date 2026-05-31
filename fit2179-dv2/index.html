@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Australian Migration 2024–25</title>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-flag">
+    <img src="assets/australia-flag.svg" alt="🇦🇺" width="48" height="24">
+  </div>
+  <h1>Australian Migration <span>2024–25</span></h1>
+  <p class="hero-subtitle">For four decades, migration has helped shape modern Australia. From skilled workers and students to refugees and families, millions of people have contributed to Australia's growth, workforce and identity.</p>
+  <p class="hero-author">Mehrnaz Zarkalam</p>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <span class="hero-stat-number">4.2M+</span>
+      <span class="hero-stat-label">Migrants since 1984</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-number">185,001</span>
+      <span class="hero-stat-label">Visas granted 2024–25</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-number">165,193</span>
+      <span class="hero-stat-label">New citizens in 2024–25</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-number">34.6%</span>
+      <span class="hero-stat-label">Of new jobs from migrants</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: 40 YEARS OF MIGRATION -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Chapter 1</div>
+    <h2 class="section-title">Forty Years of Opening Doors</h2>
+    <p class="section-body">Migration levels have changed significantly over the past four decades. Economic growth, labour shortages, humanitarian commitments and family reunification have all influenced who comes to Australia and how many people are admitted each year. Two patterns stand out: a long period of growth through the 2000s, followed by the unprecedented disruption caused by COVID-19 and the rapid recovery that followed.</p>
+
+    <div class="callout">
+      <strong>Key insight:</strong> In 2020–21, migration fell to just 160,052 — the lowest since 2001. By 2022–23 it surged to 195,004, a record high, as Australia caught up on a backlog of applications.
+    </div>
+
+    <div class="card">
+      <div class="card-title">Australia's Migration Program, 1984–85 to 2024–25</div>
+      <div class="card-note">Total visa grants per financial year. Hover over points for details.</div>
+      <div id="chart-line" class="vega-chart"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: WHO COMES AND WHY -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Chapter 2</div>
+    <h2 class="section-title">Who Migrates to Australia?</h2>
+    <p class="section-body">Australia's migration program is split into three streams: skilled migrants who fill workforce gaps, family members joining loved ones already here, and humanitarian entrants — refugees and asylum seekers. The relative importance of each stream has changed over time as Australia's economic and humanitarian priorities have evolved.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Migration Streams, 2015–16 to 2024–25</div>
+        <div class="card-note">Skill, Family, and Humanitarian visa grants per year. Click legend to filter.</div>
+        <div id="chart-stacked" class="vega-chart"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Humanitarian Program: Refugees vs. Onshore Protection</div>
+        <div class="card-note">COVID-19 severely restricted offshore resettlement in 2020–21.</div>
+        <div id="chart-humanitarian" class="vega-chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: MAP -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Chapter 3</div>
+    <h2 class="section-title">Where Do Migrants Come From?</h2>
+    <p class="section-body">Skilled migrants come from many countries, but a small number consistently account for a large share of Australia's skilled visa intake. India has become Australia's largest source of skilled migrants, while China, the United Kingdom, the Philippines and Nepal also contribute significant numbers.</p>
+
+    <div class="card">
+      <div class="card-title">Top Countries of Origin — Employer Sponsored Skilled Visas, 2024–25</div>
+      <div class="card-note">Source: Department of Home Affairs, Migration Trends Statistical Package 2024–25. Hover over a country for details.</div>
+      <div id="chart-map" class="vega-chart"></div>
+    </div>
+
+    <div class="callout">
+      India was Australia's largest source of employer-sponsored skilled migrants in 2024–25, contributing almost three times as many visa holders as the United Kingdom.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: TOP COUNTRIES BAR -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Chapter 4</div>
+    <h2 class="section-title">What Skills Does Australia Need?</h2>
+    <p class="section-body">Beyond where migrants come from, it matters what skills they bring. Australia actively recruits to fill shortages in healthcare, engineering, and technology. The heatmap below shows how the top source countries have changed year by year for state-nominated visas — India consistently records the highest number of state-nominated visa grants throughout the period shown.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Top 10 Source Countries — Employer Sponsored Visas, 2024–25</div>
+        <div class="card-note">Number of primary and secondary applicants granted visas.</div>
+        <div id="chart-bar-countries" class="vega-chart"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Top Occupations — State/Territory Nominated Visas, 2024–25</div>
+        <div class="card-note">What jobs do state-sponsored migrants fill?</div>
+        <div id="chart-occupations" class="vega-chart"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:0">
+      <div class="card-title">State/Territory Nominated Visas by Country, 2015–16 to 2024–25</div>
+      <div class="card-note">Heatmap of visa grants. Darker colour = more visas. India's dominance across all years is clear.</div>
+      <div id="chart-heatmap" class="vega-chart"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: NOM -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Chapter 5</div>
+    <h2 class="section-title">The Great COVID Collapse — and Recovery</h2>
+    <p class="section-body">Net Overseas Migration (NOM) measures the true population impact of migration — arrivals minus departures. The COVID-19 pandemic caused the most dramatic reversal in Australia's migration history. International arrivals fell sharply as border restrictions limited travel and migration. When borders reopened, arrivals recovered rapidly and reached record levels.</p>
+
+    <div class="card">
+      <div class="card-title">Net Overseas Migration: Arrivals vs. Departures, 2015–2024</div>
+      <div class="card-note">Figures in thousands of persons. The gap between arrivals and departures is Australia's net population gain from migration.</div>
+      <div id="chart-nom" class="vega-chart"></div>
+    </div>
+
+    <div class="callout">
+      <strong>The 2023 surge:</strong> NOM arrivals hit 739,000 in 2023 — the highest ever recorded. International students alone accounted for 267,100 arrivals, more than double any pre-COVID year.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: JOBS & CITIZENSHIP -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Chapter 6</div>
+    <h2 class="section-title">Do Migrants Take Jobs — or Create Them?</h2>
+    <p class="section-body">A common concern is whether migrants displace Australian workers. Labour force data provides a broader picture of how migrants contribute to employment growth. Between June 2020 and June 2025, Australia added 2.33 million jobs. Recent migrants — those who arrived in that period — accounted for 34.6% of all job growth, despite being a small share of the population.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Share of Employment Growth, 2020–2025</div>
+        <div class="card-note">Who contributed to Australia's 2.33 million new jobs?</div>
+        <div id="chart-jobs" class="vega-chart"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Who Becomes Australian? Top 15 Countries, 2024–25</div>
+        <div class="card-note">Citizenship conferrals by original country. Total: 165,193 new Australians.</div>
+        <div id="chart-citizenship" class="vega-chart"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Unemployment Rate vs. Time in Australia (2021 Census)</div>
+      <div class="card-note">Skill stream migrants start above 13% unemployment but converge to below the Australian-born rate (4.8%) within ~10 years. Family stream migrants take longer to integrate into the workforce.</div>
+      <div id="chart-integration" class="vega-chart"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="section">
+  <div class="container">
+    <h2 class="section-title">Conclusion</h2>
+    <p class="section-body">Australia's migration story is one of adaptation and growth. Over the past four decades, migration has responded to economic needs, humanitarian challenges and global events. While migration levels have fluctuated, migrants continue to play an important role in population growth, workforce development and the ongoing evolution of Australian society.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-title">Australian Migration 2024–25</div>
+  <p>Data: <a href="https://www.homeaffairs.gov.au/research-and-statistics/statistics/visa-statistics/live/migration-statistics" target="_blank">Department of Home Affairs, Migration Trends Statistical Package 2024–25</a></p>
+  <p>Second source: <a href="https://www.abs.gov.au/statistics/people/population/overseas-migration/latest-release" target="_blank">Australian Bureau of Statistics, Net Overseas Migration & Labour Force Data</a></p>
+  <p style="margin-top:12px">Visualisation by Mehrnaz Zarkalam · FIT2179 Data Visualisation 2 · Monash University · May 2026</p>
+  <p style="margin-top:8px; font-size:0.78rem">AI tools (Claude) were used for coding assistance and grammar checking. All data is real and unmodified from official government sources.</p>
+</footer>
+
+<script src="js/charts.js"></script>
+</body>
+</html>

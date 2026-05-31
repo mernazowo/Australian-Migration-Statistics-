@@ -1,0 +1,105 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "../data/migration_program.csv",
+    "format": { "type": "csv" }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "color": "#C9A84C",
+        "opacity": 0.12,
+        "line": false
+      },
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "Total", "type": "quantitative" }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#C9A84C",
+        "strokeWidth": 2.5,
+        "point": { "color": "#C9A84C", "size": 40, "filled": true }
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": { "labelAngle": -45, "labelFontSize": 10 },
+          "title": "Financial Year"
+        },
+        "y": {
+          "field": "Total",
+          "type": "quantitative",
+          "axis": { "format": ",", "title": "Total Visas Granted" }
+        },
+        "tooltip": [
+          { "field": "Year", "title": "Year" },
+          { "field": "Total", "title": "Visas Granted", "format": "," }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "color": "#E05C3A",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dy": -12
+      },
+      "transform": [{ "filter": "datum.Year === '2022–23'" }],
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "Total", "type": "quantitative" },
+        "text": { "value": "▲ Record recovery" }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "color": "#4A9EDB",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dy": 16
+      },
+      "transform": [{ "filter": "datum.Year === '2020–21'" }],
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "Total", "type": "quantitative" },
+        "text": { "value": "▼ COVID collapse" }
+      }
+    }
+  ]
+}

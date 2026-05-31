@@ -1,0 +1,130 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "../data/unemployment_integration.csv",
+    "format": { "type": "csv" }
+  },
+  "transform": [
+    {
+      "fold": [
+        "Skill stream unemployment",
+        "Family stream unemployment",
+        "Australian-born unemployment"
+      ],
+      "as": ["group_raw", "value"]
+    },
+    { "calculate": "toNumber(datum.value)", "as": "value" },
+    {
+      "calculate": "datum.group_raw === 'Skill stream unemployment' ? 'Skill stream migrants' : datum.group_raw === 'Family stream unemployment' ? 'Family stream migrants' : 'Australian-born'",
+      "as": "group"
+    },
+    {
+      "calculate": "datum['Years in Australia'] == '< 2' ? '< 2' : datum['Years in Australia'] >= 20 ? '20+' : '~' + round(datum['Years in Australia'])",
+      "as": "years"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "point": { "filled": true, "size": 50 }
+      },
+      "encoding": {
+        "x": {
+          "field": "years",
+          "type": "ordinal",
+          "axis": { "title": "Years in Australia", "labelFontSize": 10 }
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": { "title": "Unemployment Rate (%)", "format": ".1f" }
+        },
+        "color": {
+          "field": "group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Skill stream migrants",
+              "Family stream migrants",
+              "Australian-born"
+            ],
+            "range": ["#C9A84C", "#E05C3A", "#4A9EDB"]
+          },
+          "legend": { "title": "Group", "orient": "top-left" }
+        },
+        "strokeDash": {
+          "field": "group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Skill stream migrants",
+              "Family stream migrants",
+              "Australian-born"
+            ],
+            "range": [[1, 0], [1, 0], [4, 2]]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "years", "title": "Years in Australia" },
+          { "field": "group", "title": "Group" },
+          {
+            "field": "value",
+            "title": "Unemployment Rate (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "color": "#4A9EDB",
+        "dx": 5,
+        "dy": -8
+      },
+      "transform": [
+        {
+          "filter": "datum.group === 'Australian-born' && datum.years === '< 2'"
+        }
+      ],
+      "encoding": {
+        "x": { "field": "years", "type": "ordinal" },
+        "y": { "field": "value", "type": "quantitative" },
+        "text": { "value": "Australian-born baseline" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "../data/occupations.csv",
+    "format": { "type": "csv" }
+  },
+  "transform": [
+    { "filter": "datum.Year === '2024–25'" },
+    {
+      "fold": [
+        "Registered Nurses",
+        "Early Childhood (Pre-primary School) Teachers",
+        "Civil Engineering Professionals",
+        "Carpenters and Joiners",
+        "Architects and Landscape Architects",
+        "Civil Engineering Draftspersons and Technicians",
+        "Painting Trades Workers",
+        "Software and Applications Programmers",
+        "Chefs",
+        "Secondary School Teachers"
+      ],
+      "as": ["occupation", "value"]
+    },
+    { "filter": "datum.value !== '<5' && datum.value !== ''" },
+    { "calculate": "toNumber(datum.value)", "as": "value" },
+    { "filter": "isValid(datum.value)" }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "rule", "color": "#3A4A5C", "strokeWidth": 2 },
+      "encoding": {
+        "y": {
+          "field": "occupation",
+          "type": "ordinal",
+          "sort": "-x",
+          "axis": { "title": null, "labelFontSize": 10 }
+        },
+        "x": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": { "format": ",", "title": "Primary Applicants (2024–25)" }
+        },
+        "x2": { "value": 0 }
+      }
+    },
+    {
+      "mark": { "type": "point", "filled": true, "size": 80, "color": "#4CAF7D" },
+      "encoding": {
+        "y": { "field": "occupation", "type": "ordinal", "sort": "-x" },
+        "x": { "field": "value", "type": "quantitative" },
+        "tooltip": [
+          { "field": "occupation", "title": "Occupation" },
+          { "field": "value", "title": "Primary Applicants", "format": "," }
+        ]
+      }
+    }
+  ]
+}

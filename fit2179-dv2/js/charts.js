@@ -1,0 +1,11 @@
+vegaEmbed('#chart-line', 'charts/line_40years.json');
+vegaEmbed('#chart-stacked', 'charts/stacked_streams.json');
+vegaEmbed('#chart-humanitarian', 'charts/humanitarian.json');
+vegaEmbed('#chart-map', 'charts/map_world.json');
+vegaEmbed('#chart-bar-countries', 'charts/bar_countries.json');
+vegaEmbed('#chart-occupations', 'charts/lollipop_occupations.json');
+vegaEmbed('#chart-heatmap', 'charts/heatmap_countries.json');
+vegaEmbed('#chart-nom', 'charts/area_nom.json');
+vegaEmbed('#chart-jobs', 'charts/donut_jobs.json');
+vegaEmbed('#chart-citizenship', 'charts/bar_citizenship.json');
+vegaEmbed('#chart-integration', 'charts/line_integration.json');

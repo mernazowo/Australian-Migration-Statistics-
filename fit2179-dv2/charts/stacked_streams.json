@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "../data/streams.csv",
+    "format": { "type": "csv" }
+  },
+  "transform": [
+    {
+      "lookup": "Year",
+      "from": {
+        "data": {
+          "url": "../data/humanitarian.csv",
+          "format": { "type": "csv" }
+        },
+        "key": "Year",
+        "fields": ["Total Humanitarian Program grants"]
+      }
+    },
+    {
+      "fold": [
+        "Skill stream total",
+        "Family stream total",
+        "Total Humanitarian Program grants"
+      ],
+      "as": ["stream_raw", "value"]
+    },
+    {
+      "calculate": "toNumber(datum.value)",
+      "as": "value"
+    },
+    {
+      "filter": "isValid(datum.value)"
+    },
+    {
+      "calculate": "datum.stream_raw === 'Skill stream total' ? 'Skill' : datum.stream_raw === 'Family stream total' ? 'Family' : 'Humanitarian'",
+      "as": "stream"
+    }
+  ],
+  "mark": { "type": "bar" },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "axis": { "labelAngle": -40, "labelFontSize": 10 },
+      "title": "Financial Year"
+    },
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": { "format": "%", "title": "Share of Total" }
+    },
+    "color": {
+      "field": "stream",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Skill", "Family", "Humanitarian"],
+        "range": ["#C9A84C", "#4A9EDB", "#E05C3A"]
+      },
+      "legend": { "title": "Stream", "orient": "top" }
+    },
+    "tooltip": [
+      { "field": "Year", "title": "Year" },
+      { "field": "stream", "title": "Stream" },
+      { "field": "value", "title": "Visas", "format": "," }
+    ]
+  }
+}

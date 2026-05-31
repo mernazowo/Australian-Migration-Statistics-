@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "../data/employment_growth.csv",
+    "format": { "type": "csv" }
+  },
+  "transform": [
+    {
+      "filter": "datum.Metric === 'Growth as proportion of total growth (%)'"
+    },
+    {
+      "fold": ["Australian-born", "Established migrants", "Recent migrants"],
+      "as": ["group_raw", "value"]
+    },
+    { "calculate": "toNumber(datum.value)", "as": "value" },
+    { "filter": "isValid(datum.value)" },
+    {
+      "calculate": "datum.group_raw === 'Recent migrants' ? 'Recent migrants\\n(arrived 2020–25)' : datum.group_raw",
+      "as": "group"
+    }
+  ],
+  "mark": { "type": "arc", "innerRadius": 60, "outerRadius": 110 },
+  "encoding": {
+    "theta": { "field": "value", "type": "quantitative" },
+    "color": {
+      "field": "group",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Australian-born",
+          "Established migrants",
+          "Recent migrants\n(arrived 2020–25)"
+        ],
+        "range": ["#4A9EDB", "#4CAF7D", "#C9A84C"]
+      },
+      "legend": { "title": "Group", "orient": "right" }
+    },
+    "tooltip": [
+      { "field": "group", "title": "Group" },
+      {
+        "field": "value",
+        "title": "Share of Job Growth (%)",
+        "format": ".1f"
+      }
+    ]
+  }
+}

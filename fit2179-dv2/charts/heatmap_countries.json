@@ -1,0 +1,106 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 240,
+  "data": {
+    "url": "../data/state_nominated_countries.csv",
+    "format": { "type": "csv" }
+  },
+  "transform": [
+    {
+      "fold": [
+        "India",
+        "China",
+        "Nepal",
+        "Pakistan",
+        "Sri Lanka",
+        "United Kingdom",
+        "Philippines",
+        "Malaysia",
+        "South Africa",
+        "Bhutan",
+        "Iran",
+        "Vietnam",
+        "Bangladesh",
+        "Ireland",
+        "Brazil"
+      ],
+      "as": ["country", "value"]
+    },
+    { "calculate": "toNumber(datum.value)", "as": "value" },
+    { "filter": "isValid(datum.value)" }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "rect", "cornerRadius": 2 },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": { "labelAngle": -40, "labelFontSize": 10, "title": "Financial Year" }
+        },
+        "y": {
+          "field": "country",
+          "type": "ordinal",
+          "axis": { "title": null, "labelFontSize": 11 }
+        },
+        "color": {
+          "field": "value",
+          "type": "quantitative",
+          "scale": { "scheme": "yelloworangered" },
+          "legend": { "title": "Visa Grants", "orient": "right", "format": "," }
+        },
+        "tooltip": [
+          { "field": "Year", "title": "Year" },
+          { "field": "country", "title": "Country" },
+          { "field": "value", "title": "Visa Grants", "format": "," }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.country === 'India' && datum.Year === '2024–25'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 9,
+        "color": "#FFFFFF",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "country", "type": "ordinal" },
+        "text": { "value": "Highest grants" }
+      }
+    }
+  ]
+}

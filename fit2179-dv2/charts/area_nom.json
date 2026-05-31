@@ -1,0 +1,161 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 300,
+  "layer": [
+    {
+      "data": {
+        "url": "../data/nom_arrivals.csv",
+        "format": { "type": "csv" }
+      },
+      "transform": [
+        { "calculate": "'Arrivals'", "as": "type" },
+        {
+          "calculate": "toNumber(datum['Total NOM arrivals'])",
+          "as": "value"
+        }
+      ],
+      "mark": { "type": "area", "opacity": 0.7, "line": { "strokeWidth": 2 } },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": { "title": "Year" }
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": { "title": "Persons (thousands)", "format": "," },
+          "stack": null
+        },
+        "color": {
+          "field": "type",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Arrivals", "Departures"],
+            "range": ["#C9A84C", "#E05C3A"]
+          },
+          "legend": { "title": "Category", "orient": "top-right" }
+        },
+        "tooltip": [
+          { "field": "Year", "title": "Year" },
+          { "field": "type", "title": "Category" },
+          {
+            "field": "value",
+            "title": "Persons ('000s)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "../data/nom_departures.csv",
+        "format": { "type": "csv" }
+      },
+      "transform": [
+        { "calculate": "'Departures'", "as": "type" },
+        {
+          "calculate": "toNumber(datum['Total NOM departures'])",
+          "as": "value"
+        }
+      ],
+      "mark": { "type": "area", "opacity": 0.7, "line": { "strokeWidth": 2 } },
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "stack": null
+        },
+        "color": { "field": "type", "type": "nominal" },
+        "tooltip": [
+          { "field": "Year", "title": "Year" },
+          { "field": "type", "title": "Category" },
+          {
+            "field": "value",
+            "title": "Persons ('000s)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "../data/nom_arrivals.csv",
+        "format": { "type": "csv" }
+      },
+      "transform": [
+        { "filter": "datum.Year == 2020" },
+        {
+          "calculate": "toNumber(datum['Total NOM arrivals'])",
+          "as": "value"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "color": "#4A9EDB",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dy": -12
+      },
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "value", "type": "quantitative" },
+        "text": { "value": "▼ COVID collapse" }
+      }
+    },
+    {
+      "data": {
+        "url": "../data/nom_arrivals.csv",
+        "format": { "type": "csv" }
+      },
+      "transform": [
+        { "filter": "datum.Year == 2023" },
+        {
+          "calculate": "toNumber(datum['Total NOM arrivals'])",
+          "as": "value"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "color": "#C9A84C",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dy": -12
+      },
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "value", "type": "quantitative" },
+        "text": { "value": "▲ 2023 recovery" }
+      }
+    }
+  ]
+}

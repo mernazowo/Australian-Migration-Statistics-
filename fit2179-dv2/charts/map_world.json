@@ -1,0 +1,137 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "background": "transparent",
+    "axis": {
+      "domainColor": "#3A4A5C",
+      "gridColor": "#1E2A3A",
+      "tickColor": "#3A4A5C",
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3",
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#8A9BAD",
+      "titleColor": "#8A9BAD",
+      "labelFont": "Source Sans 3",
+      "titleFont": "Source Sans 3"
+    },
+    "title": {
+      "color": "#E8E0D0",
+      "font": "Playfair Display",
+      "fontSize": 14
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "width": "container",
+  "height": 380,
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#1E2A3A",
+        "stroke": "#2A3A4A",
+        "strokeWidth": 0.5
+      },
+      "projection": { "type": "naturalEarth1" }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "transform": [
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "url": "../data/employer_sponsored_countries.csv",
+              "format": { "type": "csv" }
+            },
+            "transform": [
+              { "filter": "datum.Year === '2024–25'" },
+              {
+                "fold": [
+                  "India",
+                  "United Kingdom",
+                  "Philippines",
+                  "South Africa",
+                  "Sri Lanka",
+                  "China",
+                  "Nepal",
+                  "Ireland",
+                  "Brazil",
+                  "Pakistan",
+                  "Republic of Korea",
+                  "Italy",
+                  "Zimbabwe",
+                  "Colombia",
+                  "Vietnam"
+                ],
+                "as": ["country", "value"]
+              },
+              { "calculate": "toNumber(datum.value)", "as": "value" },
+              {
+                "calculate": "datum.country == 'India' ? 'IND' : datum.country == 'United Kingdom' ? 'GBR' : datum.country == 'Philippines' ? 'PHL' : datum.country == 'South Africa' ? 'ZAF' : datum.country == 'Sri Lanka' ? 'LKA' : datum.country == 'China' ? 'CHN' : datum.country == 'Nepal' ? 'NPL' : datum.country == 'Ireland' ? 'IRL' : datum.country == 'Brazil' ? 'BRA' : datum.country == 'Pakistan' ? 'PAK' : datum.country == 'Republic of Korea' ? 'KOR' : datum.country == 'Italy' ? 'ITA' : datum.country == 'Zimbabwe' ? 'ZWE' : datum.country == 'Colombia' ? 'COL' : datum.country == 'Vietnam' ? 'VNM' : null",
+                "as": "id"
+              },
+              { "filter": "isValid(datum.value) && isValid(datum.id)" }
+            ],
+            "key": "id",
+            "fields": ["value", "country"]
+          }
+        },
+        { "filter": "datum.value != null" }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#0D1117",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "color": {
+          "field": "value",
+          "type": "quantitative",
+          "scale": { "scheme": "oranges" },
+          "legend": {
+            "title": "Visa Grants",
+            "orient": "bottom-right",
+            "format": ","
+          }
+        },
+        "tooltip": [
+          { "field": "country", "title": "Country" },
+          {
+            "field": "value",
+            "title": "Visa Grants (2024–25)",
+            "format": ","
+          }
+        ]
+      },
+      "projection": { "type": "naturalEarth1" }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "color": "#C9A84C",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "align": "center"
+      },
+      "encoding": {
+        "longitude": { "value": 79 },
+        "latitude": { "value": 22 },
+        "text": { "value": "India — largest source" }
+      },
+      "projection": { "type": "naturalEarth1" }
+    }
+  ]
+}
