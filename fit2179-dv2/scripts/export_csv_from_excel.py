@@ -13,7 +13,7 @@ XLSX = Path(
     r"d:\Third Year\FIT2179 Data Visualisation\Assignment 2"
     r"\migration_trends_statistical_package_2024_25.xlsx"
 )
-OUT = Path(__file__).resolve().parent.parent / "data"
+OUT = Path(__file__).resolve().parent.parent.parent / "docs" / "data"
 
 FOOTNOTE_START = re.compile(
     r"^(?:\d+\.\s+[A-Za-z]|Note:|Source|Click here|Table |\s*$)",

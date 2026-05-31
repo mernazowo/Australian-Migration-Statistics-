@@ -3,7 +3,7 @@ import glob
 import os
 from pathlib import Path
 
-CHARTS = Path(__file__).resolve().parent.parent / "charts"
+CHARTS = Path(__file__).resolve().parent.parent.parent / "docs" / "charts"
 
 
 def fix_formats(obj):

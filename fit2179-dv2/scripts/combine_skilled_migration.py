@@ -5,7 +5,7 @@ import csv
 from collections import defaultdict
 from pathlib import Path
 
-DATA = Path(__file__).resolve().parent.parent / "data"
+DATA = Path(__file__).resolve().parent.parent.parent / "docs" / "data"
 
 # ISO 3166-1 numeric codes for world-110m.json (geographic join only).
 ISO_NUMERIC = {
