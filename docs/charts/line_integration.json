@@ -48,7 +48,7 @@
       "as": "group"
     },
     {
-      "calculate": "datum['Years in Australia'] === '< 2' ? '< 2' : datum['Years in Australia'] === '20+' ? '20+' : '~' + format(round(toNumber(datum['Years in Australia'])), 'd')",
+      "calculate": "datum['Years in Australia'] === '< 2' ? '< 2' : datum['Years in Australia'] === '20+' ? '20+' : format(round(toNumber(datum['Years in Australia'])), 'd')",
       "as": "years"
     }
   ],
@@ -63,7 +63,7 @@
         "x": {
           "field": "years",
           "type": "ordinal",
-          "sort": ["< 2", "~2", "~4", "~6", "~8", "~10", "~12", "~14", "~16", "~18", "20+"],
+          "sort": ["< 2", "2", "4", "6", "8", "10", "12", "14", "16", "18", "20+"],
           "axis": { "title": "Years in Australia", "labelFontSize": 10 }
         },
         "y": {
@@ -83,7 +83,7 @@
             ],
             "range": ["#C9A84C", "#E05C3A", "#4A9EDB"]
           },
-          "legend": { "title": "Group", "orient": "top-left" }
+          "legend": { "title": "Group", "orient": "right", "offset": 8, "labelLimit": 200 }
         },
         "strokeDash": {
           "field": "group",
@@ -117,7 +117,7 @@
         "dy": -8
       },
       "encoding": {
-        "x": { "field": "years", "type": "ordinal", "sort": ["< 2", "~2", "~4", "~6", "~8", "~10", "~12", "~14", "~16", "~18", "20+"] },
+        "x": { "field": "years", "type": "ordinal", "sort": ["< 2", "2", "4", "6", "8", "10", "12", "14", "16", "18", "20+"] },
         "y": { "field": "value", "type": "quantitative" },
         "text": { "value": "Australian-born baseline" }
       }
