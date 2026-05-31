@@ -48,7 +48,7 @@
       "as": "group"
     },
     {
-      "calculate": "datum['Years in Australia'] === '< 2' ? '< 2' : datum['Years in Australia'] === '20+' ? '20+' : format(round(toNumber(datum['Years in Australia'])), 'd')",
+      "calculate": "datum['Years in Australia'] === '< 2' ? '< 2' : datum['Years in Australia'] === '20+' ? '20+' : '' + round(toNumber(datum['Years in Australia']))",
       "as": "years"
     }
   ],
@@ -83,7 +83,14 @@
             ],
             "range": ["#C9A84C", "#E05C3A", "#4A9EDB"]
           },
-          "legend": { "title": "Group", "orient": "right", "offset": 8, "labelLimit": 200 }
+          "legend": {
+            "title": null,
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 3,
+            "offset": 12,
+            "labelLimit": 200
+          }
         },
         "strokeDash": {
           "field": "group",
