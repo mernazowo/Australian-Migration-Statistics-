@@ -16,9 +16,28 @@ XLSX = Path(
 OUT = Path(__file__).resolve().parent.parent / "data"
 
 FOOTNOTE_START = re.compile(
-    r"^(?:\d+\.|Note:|Source|Click here|Table |\s*$)",
+    r"^(?:\d+\.\s+[A-Za-z]|Note:|Source|Click here|Table |\s*$)",
     re.IGNORECASE,
 )
+
+# ISO 3166-1 numeric codes for world-110m.json map joins (not statistical data).
+ISO_NUMERIC = {
+    "India": 356,
+    "United Kingdom": 826,
+    "Philippines": 608,
+    "South Africa": 710,
+    "Sri Lanka": 144,
+    "China": 156,
+    "Nepal": 524,
+    "Ireland": 372,
+    "Brazil": 76,
+    "Pakistan": 586,
+    "Republic of Korea": 410,
+    "Italy": 380,
+    "Zimbabwe": 716,
+    "Colombia": 170,
+    "Vietnam": 704,
+}
 
 
 def clean_cell(value):
@@ -92,6 +111,20 @@ def export_country_matrix(ws, out_name):
         vals = row_values(ws, r)[1 : len(headers) + 1]
         rows.append([clean_cell(v) for v in vals])
     write_csv(OUT / out_name, headers, rows)
+    return headers, rows
+
+
+def export_employer_sponsored_map(headers, rows):
+    """Build map lookup CSV from the 2024-25 row of sheet 1.3."""
+    map_rows = []
+    for row in rows:
+        if row[0] == "2024–25":
+            for country, iso_id in ISO_NUMERIC.items():
+                if country in headers:
+                    idx = headers.index(country)
+                    map_rows.append([iso_id, country, row[idx]])
+            break
+    write_csv(OUT / "employer_sponsored_map.csv", ["id", "country", "value"], map_rows)
 
 
 def export_sheet_1_11(ws):
@@ -180,7 +213,8 @@ def main():
     wb = openpyxl.load_workbook(XLSX, read_only=False, data_only=True)
     export_sheet_1_0(wb["1.0"])
     export_sheet_1_1(wb["1.1"])
-    export_country_matrix(wb["1.3"], "employer_sponsored_countries.csv")
+    emp_headers, emp_rows = export_country_matrix(wb["1.3"], "employer_sponsored_countries.csv")
+    export_employer_sponsored_map(emp_headers, emp_rows)
     export_country_matrix(wb["1.8"], "state_nominated_countries.csv")
     export_sheet_1_11(wb["1.11"])
     export_sheet_3_0(wb["3.0"])

@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,15 +26,21 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
-  "height": 380,
+  "height": 440,
   "layer": [
     {
       "data": {
         "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
-        "format": { "type": "topojson", "feature": "countries" }
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
       },
       "mark": {
         "type": "geoshape",
@@ -41,55 +48,42 @@
         "stroke": "#2A3A4A",
         "strokeWidth": 0.5
       },
-      "projection": { "type": "naturalEarth1" }
+      "projection": {
+        "type": "naturalEarth1"
+      }
     },
     {
       "data": {
         "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
-        "format": { "type": "topojson", "feature": "countries" }
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
       },
       "transform": [
         {
           "lookup": "id",
           "from": {
             "data": {
-              "url": "../data/employer_sponsored_countries.csv",
-              "format": { "type": "csv" }
+              "url": "../data/skilled_migration_map.csv",
+              "format": {
+                "type": "csv",
+                "parse": {
+                  "id": "number",
+                  "value": "number"
+                }
+              }
             },
-            "transform": [
-              { "filter": "datum.Year === '2024–25'" },
-              {
-                "fold": [
-                  "India",
-                  "United Kingdom",
-                  "Philippines",
-                  "South Africa",
-                  "Sri Lanka",
-                  "China",
-                  "Nepal",
-                  "Ireland",
-                  "Brazil",
-                  "Pakistan",
-                  "Republic of Korea",
-                  "Italy",
-                  "Zimbabwe",
-                  "Colombia",
-                  "Vietnam"
-                ],
-                "as": ["country", "value"]
-              },
-              { "calculate": "toNumber(datum.value)", "as": "value" },
-              {
-                "calculate": "datum.country == 'India' ? 'IND' : datum.country == 'United Kingdom' ? 'GBR' : datum.country == 'Philippines' ? 'PHL' : datum.country == 'South Africa' ? 'ZAF' : datum.country == 'Sri Lanka' ? 'LKA' : datum.country == 'China' ? 'CHN' : datum.country == 'Nepal' ? 'NPL' : datum.country == 'Ireland' ? 'IRL' : datum.country == 'Brazil' ? 'BRA' : datum.country == 'Pakistan' ? 'PAK' : datum.country == 'Republic of Korea' ? 'KOR' : datum.country == 'Italy' ? 'ITA' : datum.country == 'Zimbabwe' ? 'ZWE' : datum.country == 'Colombia' ? 'COL' : datum.country == 'Vietnam' ? 'VNM' : null",
-                "as": "id"
-              },
-              { "filter": "isValid(datum.value) && isValid(datum.id)" }
-            ],
             "key": "id",
-            "fields": ["value", "country"]
+            "fields": [
+              "value",
+              "country"
+            ]
           }
         },
-        { "filter": "datum.value != null" }
+        {
+          "filter": "isValid(datum.value)"
+        }
       ],
       "mark": {
         "type": "geoshape",
@@ -100,23 +94,137 @@
         "color": {
           "field": "value",
           "type": "quantitative",
-          "scale": { "scheme": "oranges" },
-          "legend": {
-            "title": "Visa Grants",
-            "orient": "bottom-right",
-            "format": ","
+          "scale": {
+            "scheme": "oranges"
+          },
+          "legend": null
+        }
+      },
+      "projection": {
+        "type": "naturalEarth1"
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.id === 36"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#2EAD6F",
+        "stroke": "#0D1117",
+        "strokeWidth": 0.5
+      },
+      "projection": {
+        "type": "naturalEarth1"
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "param": "countryHover",
+            "empty": false
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "transparent",
+        "stroke": "#C9A84C",
+        "strokeWidth": 2.5
+      },
+      "projection": {
+        "type": "naturalEarth1"
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "url": "../data/skilled_migration_map.csv",
+              "format": {
+                "type": "csv",
+                "parse": {
+                  "id": "number",
+                  "value": "number"
+                }
+              }
+            },
+            "key": "id",
+            "fields": [
+              "value",
+              "country"
+            ]
           }
         },
+        {
+          "filter": "datum.id === 36 || isValid(datum.value)"
+        },
+        {
+          "calculate": "datum.id === 36 ? 'Australia' : datum.country",
+          "as": "tooltip_country"
+        },
+        {
+          "calculate": "datum.id === 36 ? 'Destination country' : format(datum.value, ',d') + ' skilled visas'",
+          "as": "tooltip_detail"
+        }
+      ],
+      "params": [
+        {
+          "name": "countryHover",
+          "select": {
+            "type": "point",
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "transparent",
+        "stroke": "transparent",
+        "strokeWidth": 0
+      },
+      "encoding": {
         "tooltip": [
-          { "field": "country", "title": "Country" },
           {
-            "field": "value",
-            "title": "Visa Grants (2024–25)",
-            "format": ","
+            "field": "tooltip_country",
+            "title": "Country"
+          },
+          {
+            "field": "tooltip_detail",
+            "title": "Detail"
           }
         ]
       },
-      "projection": { "type": "naturalEarth1" }
+      "projection": {
+        "type": "naturalEarth1"
+      }
     },
     {
       "mark": {
@@ -127,11 +235,19 @@
         "align": "center"
       },
       "encoding": {
-        "longitude": { "value": 79 },
-        "latitude": { "value": 22 },
-        "text": { "value": "India — largest source" }
+        "longitude": {
+          "value": 79
+        },
+        "latitude": {
+          "value": 22
+        },
+        "text": {
+          "value": "India — largest source"
+        }
       },
-      "projection": { "type": "naturalEarth1" }
+      "projection": {
+        "type": "naturalEarth1"
+      }
     }
   ]
 }

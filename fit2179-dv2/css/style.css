@@ -189,6 +189,54 @@ body {
 /* CHART CONTAINERS */
 .vega-chart { width: 100%; }
 
+.map-legend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  margin-top: 4px;
+}
+.map-legend-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.map-legend-title,
+.map-legend-dest {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.map-legend-scale {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.map-legend-gradient {
+  width: 120px;
+  height: 11px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #feedde, #fd8d3c, #a63603);
+}
+.map-legend-label {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.map-legend-dest {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.map-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+  background: #2EAD6F;
+  flex-shrink: 0;
+}
+
 /* FOOTER */
 footer {
   background: var(--mid);

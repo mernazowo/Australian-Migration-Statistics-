@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,16 +26,23 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
   "height": 280,
   "data": {
     "url": "../data/occupations.csv",
-    "format": { "type": "csv" }
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
-    { "filter": "datum.Year === '2024–25'" },
+    {
+      "filter": "datum.Year === '2024–25'"
+    },
     {
       "fold": [
         "Registered Nurses",
@@ -48,38 +56,79 @@
         "Chefs",
         "Secondary School Teachers"
       ],
-      "as": ["occupation", "value"]
+      "as": [
+        "occupation",
+        "value"
+      ]
     },
-    { "filter": "datum.value !== '<5' && datum.value !== ''" },
-    { "calculate": "toNumber(datum.value)", "as": "value" },
-    { "filter": "isValid(datum.value)" }
+    {
+      "filter": "datum.value !== '<5' && datum.value !== ''"
+    },
+    {
+      "calculate": "toNumber(datum.value)",
+      "as": "value"
+    },
+    {
+      "filter": "isValid(datum.value)"
+    }
   ],
   "layer": [
     {
-      "mark": { "type": "rule", "color": "#3A4A5C", "strokeWidth": 2 },
+      "mark": {
+        "type": "rule",
+        "color": "#3A4A5C",
+        "strokeWidth": 2
+      },
       "encoding": {
         "y": {
           "field": "occupation",
           "type": "ordinal",
           "sort": "-x",
-          "axis": { "title": null, "labelFontSize": 10 }
+          "axis": {
+            "title": null,
+            "labelFontSize": 10
+          }
         },
         "x": {
           "field": "value",
           "type": "quantitative",
-          "axis": { "format": ",", "title": "Primary Applicants (2024–25)" }
+          "axis": {
+            "format": ",d",
+            "title": "Primary Applicants (2024–25)"
+          }
         },
-        "x2": { "value": 0 }
+        "x2": {
+          "value": 0
+        }
       }
     },
     {
-      "mark": { "type": "point", "filled": true, "size": 80, "color": "#4CAF7D" },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 80,
+        "color": "#4CAF7D"
+      },
       "encoding": {
-        "y": { "field": "occupation", "type": "ordinal", "sort": "-x" },
-        "x": { "field": "value", "type": "quantitative" },
+        "y": {
+          "field": "occupation",
+          "type": "ordinal",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "value",
+          "type": "quantitative"
+        },
         "tooltip": [
-          { "field": "occupation", "title": "Occupation" },
-          { "field": "value", "title": "Primary Applicants", "format": "," }
+          {
+            "field": "occupation",
+            "title": "Occupation"
+          },
+          {
+            "field": "value",
+            "title": "Primary Applicants",
+            "format": ",d"
+          }
         ]
       }
     }

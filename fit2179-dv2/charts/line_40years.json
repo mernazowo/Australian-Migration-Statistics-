@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,25 +26,41 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
-  "height": 280,
+  "height": 320,
   "data": {
     "url": "../data/migration_program.csv",
-    "format": { "type": "csv" }
+    "format": {
+      "type": "csv"
+    }
   },
   "layer": [
     {
       "mark": {
         "type": "area",
         "color": "#C9A84C",
-        "opacity": 0.12,
-        "line": false
+        "opacity": 0.12
       },
       "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
-        "y": { "field": "Total", "type": "quantitative" }
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "Total",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              200000
+            ]
+          }
+        }
       }
     },
     {
@@ -51,54 +68,101 @@
         "type": "line",
         "color": "#C9A84C",
         "strokeWidth": 2.5,
-        "point": { "color": "#C9A84C", "size": 40, "filled": true }
+        "point": {
+          "filled": true,
+          "size": 45,
+          "color": "#C9A84C"
+        }
       },
       "encoding": {
         "x": {
           "field": "Year",
           "type": "ordinal",
-          "axis": { "labelAngle": -45, "labelFontSize": 10 },
-          "title": "Financial Year"
+          "title": "Financial Year",
+          "axis": {
+            "labelAngle": -45,
+            "labelFontSize": 10
+          }
         },
         "y": {
           "field": "Total",
           "type": "quantitative",
-          "axis": { "format": ",", "title": "Total Visas Granted" }
+          "title": "Total Visas Granted",
+          "scale": {
+            "domain": [
+              0,
+              200000
+            ]
+          },
+          "axis": {
+            "format": ",d"
+          }
         },
         "tooltip": [
-          { "field": "Year", "title": "Year" },
-          { "field": "Total", "title": "Visas Granted", "format": "," }
+          {
+            "field": "Year",
+            "title": "Financial Year"
+          },
+          {
+            "field": "Total",
+            "title": "Total Visas",
+            "format": ",d"
+          }
         ]
       }
     },
     {
+      "transform": [
+        {
+          "filter": "datum.Year === '2022–23'"
+        }
+      ],
       "mark": {
         "type": "text",
         "color": "#E05C3A",
-        "fontSize": 10,
         "fontWeight": "bold",
-        "dy": -12
+        "fontSize": 11,
+        "dy": -25
       },
-      "transform": [{ "filter": "datum.Year === '2022–23'" }],
       "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
-        "y": { "field": "Total", "type": "quantitative" },
-        "text": { "value": "▲ Record recovery" }
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "Total",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "▲ Record intake"
+        }
       }
     },
     {
+      "transform": [
+        {
+          "filter": "datum.Year === '2021–22'"
+        }
+      ],
       "mark": {
         "type": "text",
         "color": "#4A9EDB",
-        "fontSize": 10,
         "fontWeight": "bold",
-        "dy": 16
+        "fontSize": 11,
+        "dy": 25
       },
-      "transform": [{ "filter": "datum.Year === '2020–21'" }],
       "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
-        "y": { "field": "Total", "type": "quantitative" },
-        "text": { "value": "▼ COVID collapse" }
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "Total",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "▼ COVID disruption"
+        }
       }
     }
   ]

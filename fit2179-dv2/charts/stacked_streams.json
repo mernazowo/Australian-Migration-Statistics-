@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,13 +26,18 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
   "height": 280,
   "data": {
     "url": "../data/streams.csv",
-    "format": { "type": "csv" }
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
     {
@@ -39,10 +45,14 @@
       "from": {
         "data": {
           "url": "../data/humanitarian.csv",
-          "format": { "type": "csv" }
+          "format": {
+            "type": "csv"
+          }
         },
         "key": "Year",
-        "fields": ["Total Humanitarian Program grants"]
+        "fields": [
+          "Total Humanitarian Program grants"
+        ]
       }
     },
     {
@@ -51,7 +61,10 @@
         "Family stream total",
         "Total Humanitarian Program grants"
       ],
-      "as": ["stream_raw", "value"]
+      "as": [
+        "stream_raw",
+        "value"
+      ]
     },
     {
       "calculate": "toNumber(datum.value)",
@@ -65,33 +78,62 @@
       "as": "stream"
     }
   ],
-  "mark": { "type": "bar" },
+  "mark": {
+    "type": "bar"
+  },
   "encoding": {
     "x": {
       "field": "Year",
       "type": "ordinal",
-      "axis": { "labelAngle": -40, "labelFontSize": 10 },
+      "axis": {
+        "labelAngle": -40,
+        "labelFontSize": 10
+      },
       "title": "Financial Year"
     },
     "y": {
       "field": "value",
       "type": "quantitative",
       "stack": "normalize",
-      "axis": { "format": "%", "title": "Share of Total" }
+      "axis": {
+        "format": "%",
+        "title": "Share of Total"
+      }
     },
     "color": {
       "field": "stream",
       "type": "nominal",
       "scale": {
-        "domain": ["Skill", "Family", "Humanitarian"],
-        "range": ["#C9A84C", "#4A9EDB", "#E05C3A"]
+        "domain": [
+          "Skill",
+          "Family",
+          "Humanitarian"
+        ],
+        "range": [
+          "#C9A84C",
+          "#4A9EDB",
+          "#E05C3A"
+        ]
       },
-      "legend": { "title": "Stream", "orient": "top" }
+      "legend": {
+        "title": "Stream",
+        "orient": "top"
+      }
     },
     "tooltip": [
-      { "field": "Year", "title": "Year" },
-      { "field": "stream", "title": "Stream" },
-      { "field": "value", "title": "Visas", "format": "," }
+      {
+        "field": "Year",
+        "title": "Year"
+      },
+      {
+        "field": "stream",
+        "title": "Stream"
+      },
+      {
+        "field": "value",
+        "title": "Visas",
+        "format": ",d"
+      }
     ]
   }
 }

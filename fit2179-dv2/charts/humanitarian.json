@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,18 +26,29 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
   "height": 280,
   "data": {
     "url": "../data/humanitarian.csv",
-    "format": { "type": "csv" }
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
     {
-      "fold": ["Offshore resettlement total", "Onshore protection total"],
-      "as": ["type_raw", "value"]
+      "fold": [
+        "Offshore resettlement total",
+        "Onshore protection total"
+      ],
+      "as": [
+        "type_raw",
+        "value"
+      ]
     },
     {
       "calculate": "toNumber(datum.value)",
@@ -49,52 +61,60 @@
   ],
   "layer": [
     {
-      "mark": { "type": "bar" },
+      "mark": {
+        "type": "bar"
+      },
       "encoding": {
         "x": {
           "field": "Year",
           "type": "ordinal",
-          "axis": { "labelAngle": -40, "labelFontSize": 10 },
+          "axis": {
+            "labelAngle": -40,
+            "labelFontSize": 10
+          },
           "title": "Financial Year"
         },
         "y": {
           "field": "value",
           "type": "quantitative",
-          "axis": { "format": ",", "title": "Visas Granted" }
+          "axis": {
+            "format": ",d",
+            "title": "Visas Granted"
+          }
         },
         "color": {
           "field": "type",
           "type": "nominal",
           "scale": {
-            "domain": ["Offshore (Refugees)", "Onshore (Protection)"],
-            "range": ["#E05C3A", "#E8A87C"]
+            "domain": [
+              "Offshore (Refugees)",
+              "Onshore (Protection)"
+            ],
+            "range": [
+              "#E05C3A",
+              "#E8A87C"
+            ]
           },
-          "legend": { "title": "Type", "orient": "top" }
+          "legend": {
+            "title": "Type",
+            "orient": "top"
+          }
         },
         "tooltip": [
-          { "field": "Year", "title": "Year" },
-          { "field": "type", "title": "Type" },
-          { "field": "value", "title": "Visas", "format": "," }
+          {
+            "field": "Year",
+            "title": "Year"
+          },
+          {
+            "field": "type",
+            "title": "Type"
+          },
+          {
+            "field": "value",
+            "title": "Visas",
+            "format": ",d"
+          }
         ]
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.Year === '2020–21' && datum.type === 'Offshore (Refugees)'"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "color": "#4A9EDB",
-        "fontSize": 10,
-        "fontWeight": "bold",
-        "dy": -8
-      },
-      "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
-        "y": { "field": "value", "type": "quantitative" },
-        "text": { "value": "▼ COVID disruption" }
       }
     }
   ]

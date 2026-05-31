@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,16 +26,23 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
   "height": 280,
   "data": {
     "url": "../data/citizenship.csv",
-    "format": { "type": "csv" }
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
-    { "filter": "datum.Gender === 'Total4'" },
+    {
+      "filter": "datum.Gender === 'Total4'"
+    },
     {
       "fold": [
         "New Zealand",
@@ -48,33 +56,63 @@
         "Pakistan",
         "South Africa"
       ],
-      "as": ["country", "value"]
+      "as": [
+        "country",
+        "value"
+      ]
     },
-    { "calculate": "toNumber(datum.value)", "as": "value" },
-    { "filter": "isValid(datum.value)" }
+    {
+      "calculate": "toNumber(datum.value)",
+      "as": "value"
+    },
+    {
+      "filter": "isValid(datum.value)"
+    }
   ],
-  "mark": { "type": "bar", "color": "#4A9EDB", "cornerRadiusEnd": 3 },
+  "mark": {
+    "type": "bar",
+    "color": "#4A9EDB",
+    "cornerRadiusEnd": 3
+  },
   "encoding": {
     "y": {
       "field": "country",
       "type": "ordinal",
       "sort": "-x",
-      "axis": { "title": null, "labelFontSize": 11 }
+      "axis": {
+        "title": null,
+        "labelFontSize": 11
+      }
     },
     "x": {
       "field": "value",
       "type": "quantitative",
-      "axis": { "format": ",", "title": "New Citizens (2024–25)" }
+      "axis": {
+        "format": ",d",
+        "title": "New Citizens (2024–25)"
+      }
     },
     "color": {
       "field": "value",
       "type": "quantitative",
-      "scale": { "range": ["#1A5C8A", "#4A9EDB"] },
+      "scale": {
+        "range": [
+          "#1A5C8A",
+          "#4A9EDB"
+        ]
+      },
       "legend": null
     },
     "tooltip": [
-      { "field": "country", "title": "Country" },
-      { "field": "value", "title": "New Citizens", "format": "," }
+      {
+        "field": "country",
+        "title": "Country"
+      },
+      {
+        "field": "value",
+        "title": "New Citizens",
+        "format": ",d"
+      }
     ]
   }
 }

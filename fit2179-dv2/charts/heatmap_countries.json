@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,13 +26,18 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
   "height": 240,
   "data": {
     "url": "../data/state_nominated_countries.csv",
-    "format": { "type": "csv" }
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
     {
@@ -52,35 +58,69 @@
         "Ireland",
         "Brazil"
       ],
-      "as": ["country", "value"]
+      "as": [
+        "country",
+        "value"
+      ]
     },
-    { "calculate": "toNumber(datum.value)", "as": "value" },
-    { "filter": "isValid(datum.value)" }
+    {
+      "calculate": "toNumber(datum.value)",
+      "as": "value"
+    },
+    {
+      "filter": "isValid(datum.value)"
+    }
   ],
   "layer": [
     {
-      "mark": { "type": "rect", "cornerRadius": 2 },
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 2
+      },
       "encoding": {
         "x": {
           "field": "Year",
           "type": "ordinal",
-          "axis": { "labelAngle": -40, "labelFontSize": 10, "title": "Financial Year" }
+          "axis": {
+            "labelAngle": -40,
+            "labelFontSize": 10,
+            "title": "Financial Year"
+          }
         },
         "y": {
           "field": "country",
           "type": "ordinal",
-          "axis": { "title": null, "labelFontSize": 11 }
+          "axis": {
+            "title": null,
+            "labelFontSize": 11
+          }
         },
         "color": {
           "field": "value",
           "type": "quantitative",
-          "scale": { "scheme": "yelloworangered" },
-          "legend": { "title": "Visa Grants", "orient": "right", "format": "," }
+          "scale": {
+            "scheme": "yelloworangered"
+          },
+          "legend": {
+            "title": "Visa Grants",
+            "orient": "right",
+            "format": ",d"
+          }
         },
         "tooltip": [
-          { "field": "Year", "title": "Year" },
-          { "field": "country", "title": "Country" },
-          { "field": "value", "title": "Visa Grants", "format": "," }
+          {
+            "field": "Year",
+            "title": "Year"
+          },
+          {
+            "field": "country",
+            "title": "Country"
+          },
+          {
+            "field": "value",
+            "title": "Visa Grants",
+            "format": ",d"
+          }
         ]
       }
     },
@@ -97,9 +137,17 @@
         "fontWeight": "bold"
       },
       "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
-        "y": { "field": "country", "type": "ordinal" },
-        "text": { "value": "Highest grants" }
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "country",
+          "type": "ordinal"
+        },
+        "text": {
+          "value": "Highest grants"
+        }
       }
     }
   ]

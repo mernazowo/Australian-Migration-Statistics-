@@ -48,7 +48,7 @@
       "as": "group"
     },
     {
-      "calculate": "datum['Years in Australia'] == '< 2' ? '< 2' : datum['Years in Australia'] >= 20 ? '20+' : '~' + round(datum['Years in Australia'])",
+      "calculate": "datum['Years in Australia'] === '< 2' ? '< 2' : datum['Years in Australia'] === '20+' ? '20+' : '~' + format(round(toNumber(datum['Years in Australia'])), 'd')",
       "as": "years"
     }
   ],
@@ -63,11 +63,13 @@
         "x": {
           "field": "years",
           "type": "ordinal",
+          "sort": ["< 2", "~2", "~4", "~6", "~8", "~10", "~12", "~14", "~16", "~18", "20+"],
           "axis": { "title": "Years in Australia", "labelFontSize": 10 }
         },
         "y": {
           "field": "value",
           "type": "quantitative",
+          "scale": { "domain": [0, 26] },
           "axis": { "title": "Unemployment Rate (%)", "format": ".1f" }
         },
         "color": {
@@ -99,15 +101,14 @@
         "tooltip": [
           { "field": "years", "title": "Years in Australia" },
           { "field": "group", "title": "Group" },
-          {
-            "field": "value",
-            "title": "Unemployment Rate (%)",
-            "format": ".1f"
-          }
+          { "field": "value", "title": "Unemployment Rate (%)", "format": ".1f" }
         ]
       }
     },
     {
+      "transform": [
+        { "filter": "datum.group === 'Australian-born' && datum.years === '< 2'" }
+      ],
       "mark": {
         "type": "text",
         "fontSize": 10,
@@ -115,13 +116,8 @@
         "dx": 5,
         "dy": -8
       },
-      "transform": [
-        {
-          "filter": "datum.group === 'Australian-born' && datum.years === '< 2'"
-        }
-      ],
       "encoding": {
-        "x": { "field": "years", "type": "ordinal" },
+        "x": { "field": "years", "type": "ordinal", "sort": ["< 2", "~2", "~4", "~6", "~8", "~10", "~12", "~14", "~16", "~18", "20+"] },
         "y": { "field": "value", "type": "quantitative" },
         "text": { "value": "Australian-born baseline" }
       }

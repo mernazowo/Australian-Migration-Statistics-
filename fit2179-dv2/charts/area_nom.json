@@ -16,7 +16,8 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3"
+      "titleFont": "Source Sans 3",
+      "format": ",d"
     },
     "title": {
       "color": "#E8E0D0",
@@ -25,6 +26,9 @@
     },
     "view": {
       "stroke": "transparent"
+    },
+    "axisQuantitative": {
+      "format": ",d"
     }
   },
   "width": "container",
@@ -33,40 +37,71 @@
     {
       "data": {
         "url": "../data/nom_arrivals.csv",
-        "format": { "type": "csv" }
+        "format": {
+          "type": "csv"
+        }
       },
       "transform": [
-        { "calculate": "'Arrivals'", "as": "type" },
+        {
+          "calculate": "'Arrivals'",
+          "as": "type"
+        },
         {
           "calculate": "toNumber(datum['Total NOM arrivals'])",
           "as": "value"
         }
       ],
-      "mark": { "type": "area", "opacity": 0.7, "line": { "strokeWidth": 2 } },
+      "mark": {
+        "type": "area",
+        "opacity": 0.7,
+        "line": {
+          "strokeWidth": 2
+        }
+      },
       "encoding": {
         "x": {
           "field": "Year",
           "type": "ordinal",
-          "axis": { "title": "Year" }
+          "axis": {
+            "title": "Year"
+          }
         },
         "y": {
           "field": "value",
           "type": "quantitative",
-          "axis": { "title": "Persons (thousands)", "format": "," },
+          "axis": {
+            "title": "Persons (thousands)",
+            "format": ",.0f"
+          },
           "stack": null
         },
         "color": {
           "field": "type",
           "type": "nominal",
           "scale": {
-            "domain": ["Arrivals", "Departures"],
-            "range": ["#C9A84C", "#E05C3A"]
+            "domain": [
+              "Arrivals",
+              "Departures"
+            ],
+            "range": [
+              "#C9A84C",
+              "#E05C3A"
+            ]
           },
-          "legend": { "title": "Category", "orient": "top-right" }
+          "legend": {
+            "title": "Category",
+            "orient": "top-right"
+          }
         },
         "tooltip": [
-          { "field": "Year", "title": "Year" },
-          { "field": "type", "title": "Category" },
+          {
+            "field": "Year",
+            "title": "Year"
+          },
+          {
+            "field": "type",
+            "title": "Category"
+          },
           {
             "field": "value",
             "title": "Persons ('000s)",
@@ -78,27 +113,50 @@
     {
       "data": {
         "url": "../data/nom_departures.csv",
-        "format": { "type": "csv" }
+        "format": {
+          "type": "csv"
+        }
       },
       "transform": [
-        { "calculate": "'Departures'", "as": "type" },
+        {
+          "calculate": "'Departures'",
+          "as": "type"
+        },
         {
           "calculate": "toNumber(datum['Total NOM departures'])",
           "as": "value"
         }
       ],
-      "mark": { "type": "area", "opacity": 0.7, "line": { "strokeWidth": 2 } },
+      "mark": {
+        "type": "area",
+        "opacity": 0.7,
+        "line": {
+          "strokeWidth": 2
+        }
+      },
       "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
         "y": {
           "field": "value",
           "type": "quantitative",
           "stack": null
         },
-        "color": { "field": "type", "type": "nominal" },
+        "color": {
+          "field": "type",
+          "type": "nominal"
+        },
         "tooltip": [
-          { "field": "Year", "title": "Year" },
-          { "field": "type", "title": "Category" },
+          {
+            "field": "Year",
+            "title": "Year"
+          },
+          {
+            "field": "type",
+            "title": "Category"
+          },
           {
             "field": "value",
             "title": "Persons ('000s)",
@@ -110,10 +168,14 @@
     {
       "data": {
         "url": "../data/nom_arrivals.csv",
-        "format": { "type": "csv" }
+        "format": {
+          "type": "csv"
+        }
       },
       "transform": [
-        { "filter": "datum.Year == 2020" },
+        {
+          "filter": "datum.Year == 2020"
+        },
         {
           "calculate": "toNumber(datum['Total NOM arrivals'])",
           "as": "value"
@@ -127,18 +189,30 @@
         "dy": -12
       },
       "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
-        "y": { "field": "value", "type": "quantitative" },
-        "text": { "value": "▼ COVID collapse" }
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "▼ COVID collapse"
+        }
       }
     },
     {
       "data": {
         "url": "../data/nom_arrivals.csv",
-        "format": { "type": "csv" }
+        "format": {
+          "type": "csv"
+        }
       },
       "transform": [
-        { "filter": "datum.Year == 2023" },
+        {
+          "filter": "datum.Year == 2023"
+        },
         {
           "calculate": "toNumber(datum['Total NOM arrivals'])",
           "as": "value"
@@ -152,9 +226,17 @@
         "dy": -12
       },
       "encoding": {
-        "x": { "field": "Year", "type": "ordinal" },
-        "y": { "field": "value", "type": "quantitative" },
-        "text": { "value": "▲ 2023 recovery" }
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "▲ 2023 recovery"
+        }
       }
     }
   ]
