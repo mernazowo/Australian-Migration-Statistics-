@@ -16,12 +16,7 @@
       "labelColor": "#8A9BAD",
       "titleColor": "#8A9BAD",
       "labelFont": "Source Sans 3",
-      "titleFont": "Source Sans 3",
-      "orient": "bottom",
-      "direction": "horizontal",
-      "title": null,
-      "offset": 16,
-      "columnPadding": 24
+      "titleFont": "Source Sans 3"
     },
     "title": {
       "color": "#E8E0D0",
@@ -34,6 +29,7 @@
   },
   "width": "container",
   "height": 300,
+  "padding": { "left": 8, "right": 140, "top": 8, "bottom": 8 },
   "data": {
     "url": "data/unemployment_integration.csv",
     "format": { "type": "csv" }
@@ -96,6 +92,13 @@
               "Australian-born"
             ],
             "range": ["#C9A84C", "#E05C3A", "#4A9EDB"]
+          },
+          "legend": {
+            "title": null,
+            "orient": "right",
+            "offset": 4,
+            "labelLimit": 160,
+            "symbolSize": 80
           }
         },
         "strokeDash": {
@@ -136,8 +139,5 @@
         "text": { "value": "Australian-born baseline" }
       }
     }
-  ],
-  "resolve": {
-    "legend": "independent"
-  }
+  ]
 }
